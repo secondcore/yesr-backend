@@ -1,0 +1,1 @@
+Ext.define("Sample.Musician",{extend:"Sample.Person",statics:{clone:function(a){return new this({name:a.getName(),height:a.getHeight(),isCool:a.getIsCool(),gender:a.getGender()})}},mixins:{guitar:"Sample.ability.CanPlayGuitar",compose:"Sample.ability.CanComposeSongs",sing:"Sample.ability.CanSing"}});

@@ -1,0 +1,58 @@
+﻿@model Global.YESR.Web.Areas.Members.ViewModels.InvestmentUnitsViewModel
+
+@{
+	ViewBag.Link = "bonds";
+	ViewBag.Title = "Investment Units";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+    <ul>
+        <li>@Html.ActionLink("home", "Index", "Home", new { area = "Members" }, null)</li>
+        <li>bonds</li>
+    </ul>
+</section>
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                @Html.Action("MembershipDetail")
+            </hgroup>
+        </div>
+    </section>
+}
+
+<table class='datagrid'>
+    <tr>
+        <th>Create Date</th>
+        <th>Purchase Date</th>
+        <th>Bond Amount</th>
+        <th>Sponsor Reference</th>
+    </tr>        
+		
+	@if (Model.MaxPage > 1)
+{
+    <tr><td colspan='4' align='right'>
+    @{
+	ViewBag.LinkControl = "InvestmentUnits";
+	ViewBag.LinkId = @Model.MembershipId;
+	}
+
+	@Html.Partial("_Pager")
+
+        
+    </td></tr>
+}     
+@foreach (var item in Model.Items)
+{
+    <tr>
+        <td align='center'>@item.CreateDate.ToString("dd MMM yyyy")</td>
+        <td align='center'>@item.PurchaseDate.ToString("dd MMM yyyy")</td>
+        <td align='right'>@string.Format("{0:#,###,##0.00}", item.Amount)</td>
+        <td>@item.SponsorReference</td>
+    </tr>        
+}
+
+</table>

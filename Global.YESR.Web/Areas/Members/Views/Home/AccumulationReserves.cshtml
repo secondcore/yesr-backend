@@ -1,0 +1,87 @@
+﻿@model Global.YESR.Web.Areas.Members.ViewModels.AccumulationReservesViewModel
+@{
+	ViewBag.Link = "purchases";
+	ViewBag.Title = "Purchases";
+}
+@section breadcrumbs {
+	<section id="breadcrumbs">
+		<ul>
+			<li>@Html.ActionLink("home", "Index", "Home", new { area = "Members" }, null)</li>
+			<li>purchases</li>
+		</ul>
+	</section>
+}
+@section featured {
+	<section class="featured">
+		<div class="content-wrapper">
+			<hgroup class="title">
+				@Html.Action("MembershipDetail")
+			</hgroup>
+		</div>
+	</section>
+}
+<table class='datagrid'>
+	<tr>
+		<th>
+			Transaction Date
+		</th>
+		<th>
+			Purchase Amount
+		</th>
+		<th>
+			Cash Back Amount
+		</th>
+		<th>
+			Referral Bonus Amount
+		</th>
+		<th>
+			Reserve Amount
+		</th>
+		<th>
+			Wallet Amount
+		</th>
+		<th>
+			Bond
+		</th>
+	</tr>
+		
+	@if (Model.MaxPage > 1)
+{
+    <tr><td colspan='4' align='right'>
+    @{
+	ViewBag.LinkControl = "AccumulationReserves";
+	ViewBag.LinkId = @Model.MembershipId;
+	}
+
+	@Html.Partial("_Pager")
+
+        
+    </td></tr>
+}     
+
+	@foreach (var item in Model.Items)
+ {
+	 var investmentUnit = "Not Purchased Yet";
+	 if (item.InvestmentUnit.SponsorReference != "")
+	 {
+		 investmentUnit = item.InvestmentUnit.SponsorReference;
+	 }
+
+		<tr>
+			<td align='center'>@item.TransactionDate.ToString("dd MMM yyyy")
+			</td>
+			<td align='right'>@string.Format("{0:#,###,##0.00}", item.Purchase.Amount) @item.Currency.Symbol
+			</td>
+			<td align='right'>@string.Format("{0:#,###,##0.00}", (item.Purchase.Amount * item.Purchase.CashBackPercentage) / 100) @item.Currency.Symbol
+			</td>
+			<td align='right'>@string.Format("{0:#,###,##0.00}", (item.Purchase.Amount * (item.Purchase.ReferralPercentage + item.Purchase.IndirectReferralPercentage)) / 100) @item.Currency.Symbol
+			</td>
+			<td align='right'>@string.Format("{0:#,###,##0.00}", item.WalletAmount) @item.Currency.Symbol
+			</td>
+			<td align='right'>@string.Format("{0:#,###,##0.00}", item.Amount) @item.Currency.Symbol
+			</td>
+			<td>@investmentUnit
+			</td>
+		</tr>
+ }
+</table>

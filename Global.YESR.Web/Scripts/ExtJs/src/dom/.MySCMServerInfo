@@ -1,0 +1,15 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/dom
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=477
+Element.alignment.js;847046235;1;1339455025;
+Element.anim.js;3480979906;1;1339455025;
+Element.dd.js;2799922168;1;1339455025;
+Element.fx.js;4201834626;1;1339455025;
+Element.js;757573931;1;1339455025;
+Element.position.js;265946436;1;1339455025;
+Element.scroll.js;3850228351;1;1339455025;
+Element.style.js;2819583955;1;1339455025;
+Element.traversal.js;3147453214;1;1339455025;
+Helper.js;1059609796;1;1339455025;
+Query.js;3999314924;1;1339455025;

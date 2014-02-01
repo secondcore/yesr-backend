@@ -1,0 +1,15 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/form
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=481
+Basic.js;1976318496;1;1339455026;
+CheckboxGroup.js;1389931436;1;1339455026;
+CheckboxManager.js;1991196570;1;1339455026;
+FieldAncestor.js;2707957362;1;1339455026;
+FieldContainer.js;1841273051;1;1339455026;
+FieldSet.js;1896739893;1;1339455026;
+Label.js;1411281902;1;1339455026;
+Labelable.js;3808191272;1;1339455026;
+Panel.js;4208080938;1;1339455026;
+RadioGroup.js;3082558650;1;1339455026;
+RadioManager.js;3738887474;1;1339455026;

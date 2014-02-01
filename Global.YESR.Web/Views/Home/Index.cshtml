@@ -1,0 +1,107 @@
+﻿@{
+	ViewBag.Title = ViewBag.Link = "home";
+}
+
+@section featured {
+	<section class="featured">
+		<div class="content-wrapper">
+			<hgroup class="title">
+				@*<h1>@ViewBag.Title.</h1>*@
+				<h2>@ViewBag.Message</h2>
+			</hgroup>
+			<p>
+				To learn more about our products, visit <a href="http://www.global.com" title="GLOBAL Corporate site">
+				http://www.global.com</a>. The YESR experience features <mark>instant cash back, saving scheme and great financial rewards</mark> 
+				to help you get the most out of your regular shopping. If you have any question about YESR or any of Global products, please call us for a personal presentation. Our contact information 
+				is @Html.ActionLink("here", "Contact", "Home").
+			</p>
+		</div>
+	</section>
+}
+
+<article>
+	<h3>To start the YESR experience, may we suggest:</h3>
+	<ol class="round">
+		<li class="one">
+			<h5>Signup for a YESR Membership online</h5>
+			YESR gives you a powerful, saving-based way Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+			ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+			sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</li>
+		<li class="two">
+			<h5>Use your YESR card to shop at your favorite places that carry the YESR logo</h5>
+			Don't leave home without it! YESR gives you a powerful, saving-based way Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+			ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+			sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</li>
+		<li class="three">
+			<h5>Monitor your spends and earnings online</h5>
+			YESR gives you a powerful, saving-based way Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+			ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+			sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</li>
+	</ol>
+</article>
+
+<aside>
+	<h5>Members Distribution By City</h5>
+	<div id="membersDistributionbyCity" style="width:250px; margin-bottom:20px;"></div>
+	
+	<h5>Merchants Distribution By Type</h5>
+	<div id="merchantsDistributionbyType" style="width:250px; margin-bottom:20px;"></div>
+	
+	<h3>Useful Links</h3>
+	<ul>
+		<li>@Html.ActionLink("View Member Benefits", "Benefits", "Home")</li>
+		<li><a href="">Fill out an Online Enrollment Form</a></li>
+		<li><a href="">Request a Personal Presentation</a></li>
+		<li><a href="">Send us a Question</a></li>
+	</ul>
+</aside>
+
+@section scripts {
+	@Scripts.Render("~/bundles/flot")
+	<script type="text/javascript">
+		var plot = null;
+		Ext.onReady(function () {
+			//            dataService.getPurchasesMonthlyDataPoints(function(monthliesData) {
+			//                if (monthliesData == null || monthliesData.length == 0) return;
+			//                var chartLabels = ["Purchase", "Accumulation Reserves", "Referral Bonus", "Cash Discount"];
+			//                plot = yesrFormatter.renderMonthlyChart($("#placeholder"), 800, 400, 'red', chartLabels, monthliesData, false);
+			//            }, function(error) {
+			//                // TODO: It should be better
+			//                alert("An error occurred during monthly data retrieval: " + error.toString());
+			//            });
+
+			RetrieveMembersByCity();
+		});
+
+		function RetrieveMerchantsByType() {
+			dataService.getMerchantsDistributionByTypeDataPoints(function (distributionData) {
+				if (distributionData == null || distributionData.length == 0) return;
+				setTimeout(function () {
+				    plot = yesrFormatter.renderDistributionGraph($("#merchantsDistributionbyType"), 'Category3', 250, distributionData, false);
+				}, 100);
+			}, function (error) {
+				// TODO: It should be better
+				alert("An error occurred during merchants distribution by type retrieval: " + error.message);
+			});
+		}
+
+		function RetrieveMembersByCity() {
+		    dataService.getMembersDistributionByCityDataPoints(function (distributionData) {
+		        if (distributionData == null || distributionData.length == 0) return;
+		        setTimeout(function () {
+		            plot = yesrFormatter.renderDistributionGraph($("#membersDistributionbyCity"), 'Category3', 250, distributionData);
+		            RetrieveMerchantsByType(); // TODO: Strange stuff!!!	
+		        }, 100);
+		    }, function (error) {
+		        // TODO: It should be better
+		        yesrFormatter.showError("An error occurred during members distribution by city retrieval");
+		    });
+        }
+	</script>
+}

@@ -1,0 +1,85 @@
+﻿@using Global.YESR.Models
+@model Global.YESR.Models.Instance
+
+@{
+	ViewBag.Title = ViewBag.Link = "benefits";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+	<ul>
+		<li>@Html.ActionLink("home", "Index", "Home", new { area = "" }, null)</li>
+		<li>benefits</li>
+	</ul>
+</section>
+}
+
+<article>
+	<p>
+		<h3>Why YESR? </h3>
+		<ul>
+			<li>Long term investment scheme</li> 
+			<li>Unlike other loyalty schemes, YESR provides real savings scheme</li>
+			<li>Your savings come from your own spending as well as your referals</li> 
+			<li>Access tonational, international and online merchants</li>
+			<li>It costs nothing to join</li>
+		</ul>
+	</p>
+    
+    <p>
+        The graph shows average monthly spends, accumulations, cash discounts and referral bonuses of members participating in the YESR program.
+    </p>	
+    <br/>
+    <figure>
+		<div id="averageMonthlySpend" style='margin-top:10px;height:400px'></div>
+		<figcaption></figcaption>
+	</figure>
+</article>
+
+@{
+	var scheme = "Standard";
+	if (Model.InvestmentScheme.Id == InvestmentScheme.PowerScheme)
+	{
+		scheme = "Power";
+	}
+}
+
+<aside>
+	<h3>Program Features</h3>
+	<p>
+		@Model.Description
+	</p>
+	<ul>
+		<li>Name: @Model.ProgramName</li>
+		<li>Card Number Prefix: @Model.CardNumberPrefix</li>
+		<li>Card Number Suffix Length: @Model.CardNumberSuffixLength</li>
+		<li>Direct Referral Bonus Percentage: @Model.DirectReferralBonusPercentage</li>
+		<li>Indirect Referral Bonus Percentage: @Model.IndirectReferralBonusPercentage</li>
+		<li>Admin Fee Percentage: @Model.AdminFeePercentage</li>
+		<li>Investment Threhold Amount: @Model.InvestmentThreshold</li>
+		<li>Investment Scheme: @scheme</li>
+		<li>Sponsor: @Model.Sponsor.Name</li>
+		<li>Program Pivot Currency: @Model.Country.Currency.Name</li>
+		<li>Global Pivot Currency: @Model.GlobalPivotCurrency.Name</li>
+	</ul>
+	
+</aside>
+
+@section scripts {
+	@Scripts.Render("~/bundles/flot")
+	<script type="text/javascript">
+		var plot = null;
+		Ext.onReady(function () {
+		    dataService.getPurchasesMonthlyAverageSpendsDataPoints(function (monthliesData) {
+		        if (monthliesData == null || monthliesData.length == 0) return;
+		        var chartLabels = ["Purchase", "Accumulation Reserves", "Referral Bonus", "Cash Discount"];
+		        //plot = yesrFormatter.renderMonthlyChart($("#averageMonthlySpend"), 700, 400, 'red', chartLabels, monthliesData, false);
+		        setTimeout(function() {
+		            yesrFormatter.renderMonthlyGraph($("#averageMonthlySpend"), 'Category3', 700, 400, chartLabels, monthliesData, false);
+		        }, 100);
+		    }, function (error) {
+		        yesrFormatter.showError("An error occurred during monthly data retrieval: " + error.toString());
+		    });
+		});
+	</script>
+}

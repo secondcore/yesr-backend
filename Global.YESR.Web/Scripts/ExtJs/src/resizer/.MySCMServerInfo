@@ -1,0 +1,11 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/resizer
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=500
+BorderSplitter.js;1234723045;1;1339455027;
+BorderSplitterTracker.js;2798761082;1;1339455027;
+Handle.js;2531156676;1;1339455027;
+ResizeTracker.js;4044042427;1;1339455027;
+Resizer.js;3826529570;1;1339455027;
+Splitter.js;3160649677;1;1339455027;
+SplitterTracker.js;2149822373;1;1339455027;

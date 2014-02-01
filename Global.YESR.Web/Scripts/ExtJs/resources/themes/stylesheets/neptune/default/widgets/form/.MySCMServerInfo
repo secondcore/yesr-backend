@@ -1,0 +1,12 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/resources/themes/stylesheets/neptune/default/widgets/form
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=425
+_all.scss;3085389766;1;1339455023;
+_checkbox.scss;3079273387;1;1339455023;
+_checkboxgroup.scss;3427689185;1;1339455023;
+_field.scss;3510451767;1;1339455023;
+_fieldset.scss;1421015046;1;1339455023;
+_file.scss;1368379258;1;1339455023;
+_htmleditor.scss;3434900834;1;1339455023;
+_triggerfield.scss;361775974;1;1339455023;

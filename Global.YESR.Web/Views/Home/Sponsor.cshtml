@@ -1,0 +1,38 @@
+﻿@using Global.YESR.Models
+@model Global.YESR.Models.Sponsor
+
+@{
+	ViewBag.Title = ViewBag.Link = "sponsor";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+	<ul>
+		<li>@Html.ActionLink("home", "Index", "Home", new { area = "" }, null)</li>
+		<li>sponsor</li>
+	</ul>
+</section>
+}
+
+<article>
+<h3>National Bonds</h3>
+    <p>
+        National Bonds Corporation PJSC is a leading Investment company that takes pride in its innovative shari'a approach to financial products and services; catering to a substantial and diversified client base of retail customers, high-net-worth individuals, and Corporations.
+    </p>
+    <p>
+        National Bonds offers direct wealth accumulation through an all-in-one shari'a compliant Mudaraba based saving scheme, the first of its kind in the world. The company's strong belief in the pivotal role of savings in building a stronger economy helped its customers achieve their own financial future objectives through disciplined and regular saving habit. And it's committed to keep shaping brighter financial future for today's and tomorrow's generations.
+    </p>
+    <p>
+        National Bonds is a private joint stock shareholding company, established in March 2006 with a paid-up capital of AED 150 million. It is 100% owned by The Investment Corporation of Dubai, the investment arm of Dubai government. NBC is licensed and regulated by the UAE Central Bank, and audited by Dubai Government Audit Department, Sharia Supervisory Board as well as reputable International external auditors.
+    </p>
+</article>
+
+<aside>
+	<h3>Salient Features</h3>
+	<ul>
+		<li>@Model.Name</li>
+		<li>Refund issued after @Model.PurchasesQualifyForRefund YBond purchases</li>
+		@*<li>Refund Percentage: @Model.RefundPercentage</li>*@
+		<li>YBonds issued so far: @Model.GlobalCounter</li>
+	</ul>
+</aside>

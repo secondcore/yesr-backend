@@ -1,0 +1,55 @@
+﻿@model Global.YESR.Web.ViewModels.PumpTestMembershipViewModel
+
+@{
+    ViewBag.Title = "Pump Test Membership";
+}
+
+<h2>Pump Test Membership</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Pump Test Membership</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Token)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Token)
+            @Html.ValidationMessageFor(model => model.Token)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Referrals)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Referrals)
+            @Html.ValidationMessageFor(model => model.Referrals)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AverageMonthlySpend)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AverageMonthlySpend)
+            @Html.ValidationMessageFor(model => model.AverageMonthlySpend)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Years)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Years)
+            @Html.ValidationMessageFor(model => model.Years)
+        </div>
+
+        <p>
+            <input type="submit" value="Pump" />
+        </p>
+    </fieldset>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

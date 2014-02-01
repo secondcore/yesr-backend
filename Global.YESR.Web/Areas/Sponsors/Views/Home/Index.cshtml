@@ -1,0 +1,51 @@
+﻿@using System.Web.Optimization
+@model Global.YESR.Models.Sponsor
+
+@{
+	ViewBag.Link = "home";
+	ViewBag.Title = "Sponsors Home";
+}
+
+@section featured {
+	<section class="featured">
+		<div class="content-wrapper">
+			<hgroup class="title">
+				@Html.Action("SponsorDetail")
+			</hgroup>
+		</div>
+	</section>
+}
+
+<article>
+	<h3>Running total of issued bonds amount</h3>
+	<div id="monthlyTotalBond" class='chart-holder'>
+	</div>
+</article>
+
+<aside>
+	<h3>Useful Links</h3>
+	<ul>
+		<li>@Html.ActionLink("View Member Benefits", "Benefits", "Home", new { area = "" }, null)</li>
+		<li><a href="">Fill out an Online Enrollment Form</a></li>
+		<li><a href="">Request a Personal Presentation</a></li>
+		<li><a href="">Send us a Question</a></li>
+	</ul>
+	
+</aside>
+
+@section scripts {
+	@Scripts.Render("~/bundles/flot")
+	<script type="text/javascript">
+		var plot = null;
+		 $(document).ready(function ()  {
+			dataService.getMonthlyTotalBondAmountsBySponsor(@Model.Id, function (monthliesData) {
+				if (monthliesData == null || monthliesData.length == 0) return;
+				var chartLabels = ["Bonds Amount"];
+			   // plot = yesrFormatter.renderMonthlyChart($("#monthlyTotalBond"), 700, 400, 'red', chartLabels, monthliesData, true, 'nw');
+			   yesrFormatter.renderMonthlyGraph($("#monthlyTotalBond"), 'Category3', 700,400, chartLabels, monthliesData, true);
+			}, function (error) {
+                yesrFormatter.showError("An error occurred during monthly data retrieval: " + error.toString());
+            });
+		});
+	</script>
+}

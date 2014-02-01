@@ -1,0 +1,16 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/grid
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=486
+CellEditor.js;3970206769;1;1339455027;
+ColumnComponentLayout.js;2124925443;1;1339455027;
+ColumnLayout.js;1608657311;1;1339455027;
+Lockable.js;3173993426;1;1339455027;
+LockingView.js;3766806822;1;1339455027;
+PagingScroller.js;2332227060;1;1339455027;
+Panel.js;3659623919;1;1339455027;
+RowEditor.js;3130457838;1;1339455027;
+RowNumberer.js;3532314655;1;1339455027;
+Scroller.js;1138451294;1;1339455027;
+View.js;192520508;1;1339455027;
+ViewDropZone.js;3911075693;1;1339455027;

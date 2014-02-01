@@ -1,0 +1,11 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/fx
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=484
+Anim.js;1835112217;1;1339455026;
+Animator.js;2620406236;1;1339455027;
+CubicBezier.js;3930826210;1;1339455027;
+Easing.js;3160859565;1;1339455027;
+Manager.js;2286794078;1;1339455027;
+PropertyHandler.js;1555087122;1;1339455027;
+Queue.js;1774193994;1;1339455027;

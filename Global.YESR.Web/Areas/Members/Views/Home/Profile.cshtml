@@ -1,0 +1,115 @@
+﻿@using System.Web.Optimization
+@model Global.YESR.Models.Member
+
+@{
+	ViewBag.Link = "profile";
+	ViewBag.Title = "Member Profile";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+    <ul>
+        <li>@Html.ActionLink("home", "Index", "Home", new { area = "Members" }, null)</li>
+        <li>profile</li>
+    </ul>
+</section>
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                @Html.Action("MembershipDetail")
+            </hgroup>
+        </div>
+    </section>
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Member Profile</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Postal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Postal)
+            @Html.ValidationMessageFor(model => model.Postal)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LandPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LandPhone)
+            @Html.ValidationMessageFor(model => model.LandPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MobilePhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MobilePhone)
+            @Html.ValidationMessageFor(model => model.MobilePhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NationalId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NationalId)
+            @Html.ValidationMessageFor(model => model.NationalId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MemberSince)
+        </div>
+        <div class="editor-field">
+            @Model.MemberSince
+        </div>
+		<br/>
+        <p>
+            <input type="submit" value="Update" />
+        </p>
+    </fieldset>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

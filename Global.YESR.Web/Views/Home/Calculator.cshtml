@@ -1,0 +1,120 @@
+﻿@model Global.YESR.Web.ViewModels.CalculatorViewModel
+
+@{
+    ViewBag.Title = ViewBag.Link = "Calculator";
+}
+
+<h2>Calculator</h2>
+
+@{
+    if (Model.Pumps.Count() > 0)
+    {
+        <p>
+            The following is your test token status. Click to @Html.ActionLink("refresh", "Calculator", "Home").
+        </p>
+        <table class='datagrid'>
+            <tr>
+                <th>
+                    Create Date
+                </th>
+                <th>
+                    Token
+                </th>
+                <th>
+                    Expected Referrals
+                </th>
+                <th>
+                    Average Monthly Spend
+                </th>
+                <th>
+                    Years
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+
+            @foreach (var pump in Model.Pumps)
+            {
+                var completed = "Pending";
+                if (pump.IsCompleted)
+                {
+                    completed = "Completed";
+                }
+
+                <tr>
+                    <td align='center'>@pump.CreateDate.ToString("dd MMM yyyy")
+                    </td>
+                    <td align='center'>@pump.Token
+                    </td>
+                    <td align='center'>@pump.ExpectedReferrals
+                    </td>
+                    <td align='right'>@string.Format("{0:#,###,##0.00}", pump.AverageMonthlySpend)
+                    </td>
+                    <td align='center'>@pump.Years
+                    </td>
+                    @if (completed == "Pending")
+                    {
+                        <td align='center'>Pending</td>
+                    }
+                    else
+                    {
+                        <td align='center'>@Html.ActionLink("View Dividends", "CalculatorResults", "Home")</td>
+                    }
+                </tr>
+            }
+        </table>
+    }
+}
+
+<p>
+    Please answer the following questions and click 'Calculate'. We will simulate your spending and show you your expected dividends. Please note 
+    you will need to input a unique test token.
+</p>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Calculator</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Token)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Token)
+            @Html.ValidationMessageFor(model => model.Token)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Referrals)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Referrals)
+            @Html.ValidationMessageFor(model => model.Referrals)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AverageMonthlySpend)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AverageMonthlySpend)
+            @Html.ValidationMessageFor(model => model.AverageMonthlySpend)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Years)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Years)
+            @Html.ValidationMessageFor(model => model.Years)
+        </div>
+
+        <p>
+            <input type="submit" value="Calculate" />
+        </p>
+    </fieldset>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

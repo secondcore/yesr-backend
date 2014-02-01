@@ -1,0 +1,9 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/container
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=436
+AbstractContainer.js;541806740;1;1339455023;
+ButtonGroup.js;279767971;1;1339455023;
+Container.js;2629047155;1;1339455023;
+DockingContainer.js;314991558;1;1339455023;
+Viewport.js;1156905490;1;1339455023;

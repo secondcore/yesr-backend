@@ -1,0 +1,14 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/chart/series
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=434
+Area.js;1924298799;1;1339455023;
+Bar.js;923926116;1;1339455023;
+Cartesian.js;282481666;1;1339455023;
+Column.js;3806402140;1;1339455023;
+Gauge.js;2254609052;1;1339455023;
+Line.js;3473038687;1;1339455023;
+Pie.js;1806312068;1;1339455023;
+Radar.js;200118921;1;1339455023;
+Scatter.js;1444366325;1;1339455023;
+Series.js;611279128;1;1339455023;

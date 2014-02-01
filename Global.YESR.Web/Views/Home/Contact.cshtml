@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = ViewBag.Link = "contact";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+    <ul>
+        <li>@Html.ActionLink("home", "Index", "Home", new { area = "" }, null)</li>
+        <li>contact</li>
+    </ul>
+</section>
+}
+
+<article>
+    <section class="contact">
+        <header>
+            <h3>Phone</h3>
+        </header>
+        <p>
+            <span class="label">Main:</span>
+            <span>+971.4.555.1212</span>
+        </p>
+        <p>
+            <span class="label">After Hours:</span>
+            <span>+971.4.555.1313</span>
+        </p>
+    </section>
+
+    <section class="contact">
+        <header>
+            <h3>Email</h3>
+        </header>
+        <p>
+            <span class="label">Support:</span>
+            <span><a href="mailto:support@yesrgroup.com">support@yesrgroup.com</a></span>
+        </p>
+        <p>
+            <span class="label">Marketing & Sales:</span>
+            <span><a href="mailto:sales@yesrgroup.com">sales@yesrgroup.com</a></span>
+        </p>
+        <p>
+            <span class="label">General:</span>
+            <span><a href="mailto:info@yesrgroup.com">info@yesrgroup.com</a></span>
+        </p>
+    </section>
+
+    <section class="contact">
+        <header>
+            <h3>Address</h3>
+        </header>
+        <p>
+            1 Kings Road<br />
+            Diyafah, Dubai, United Arab Emirates
+        </p>
+    </section>
+</article>
+
+<aside>
+    <h3>Useful Links</h3>
+    <ul>
+        <li>@Html.ActionLink("View Member Benefits", "Benefits", "Home")</li>
+        <li><a href="">Fill out an Online Enrollment Form</a></li>
+        <li><a href="">Request a Personal Presentation</a></li>
+        <li><a href="">Send us a Question</a></li>
+    </ul>
+    
+</aside>

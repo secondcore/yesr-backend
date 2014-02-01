@@ -1,0 +1,1 @@
+describe("API",function(){var e=window;var d={Ext:{core:{Element:function(){}}}},a=d.Ext;a.core.Element.getActiveElement=function c(){};a.core.Element.serializeForm=function b(){};APITest({Ext:d.Ext},{Ext:e.Ext})});

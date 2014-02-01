@@ -1,0 +1,23 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/resources/themes/stylesheets/neptune/default/variables
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=423
+_base.scss;3474673599;1;1339455023;
+_boundlist.scss;207777015;1;1339455023;
+_btn-group.scss;145944063;1;1339455023;
+_button.scss;3180190905;1;1339455023;
+_core.scss;3491530202;1;1339455023;
+_focus.scss;3344654774;1;1339455023;
+_form.scss;1336759845;1;1339455023;
+_grid.scss;1119899901;1;1339455023;
+_htmleditor.scss;2988908193;1;1339455023;
+_loadmask.scss;1550600042;1;1339455023;
+_menu.scss;569158011;1;1339455023;
+_panel.scss;4292830501;1;1339455023;
+_pickers.scss;1257716799;1;1339455023;
+_progress-bar.scss;1542626316;1;1339455023;
+_qtip.scss;1960013519;1;1339455023;
+_tabs.scss;2637208284;1;1339455023;
+_toolbar.scss;249876931;1;1339455023;
+_tree.scss;841221333;1;1339455023;
+_window.scss;2149736814;1;1339455023;

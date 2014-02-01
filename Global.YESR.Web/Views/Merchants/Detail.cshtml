@@ -1,0 +1,60 @@
+﻿@using System.Globalization
+@using System.Threading
+@using Global.YESR.Web.Helpers
+@model Global.YESR.Models.Merchant
+
+@{
+    ViewBag.Title = "Merchant Detail";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                @*<h1>Membership Detail</h1>*@
+                <h2>@Model.Name</h2>
+            </hgroup>
+            <p>
+                <div>
+                    @Html.Image(Model.ImageUrl, Model.Name)
+                    @Model.Description
+                </div>
+
+                <div>
+                    Total Discount: @Model.TotalDiscount
+                </div>
+
+                <div>
+                    Cash Back Discount: @Model.CashBackDiscount
+                </div>
+
+                <div>
+                    Rating: @Model.Rating
+                </div>
+            </p>
+        </div>
+    </section>
+}
+
+<div id="merchant-detail-tabs">
+	<ul>
+		<li><a href="#merchant-detail-profile">Profile</a></li>
+		<li><a href="#merchant-detail-performance">Performance</a></li>
+	</ul>
+	<div id="merchant-detail-profile">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+	<div id="merchant-detail-performance">
+        <p>
+            <script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/viz_v1.js"></script><div class="tableauPlaceholder" style="width:804px; height:595px;"><noscript><a href="undefined"><img alt=" " src="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRPerformanceMonitor&#47;MerchantMonitor&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" width="804" height="595" style="display:none;"><param name="host_url" value="http%3A%2F%2Fpublic.tableausoftware.com%2F" /><param name="site_root" value="" /><param name="name" value="YESRPerformanceMonitor&#47;MerchantMonitor" /><param name="tabs" value="no" /><param name="toolbar" value="no" /><param name="static_image" value="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRPerformanceMonitor&#47;MerchantMonitor&#47;1.png" /><param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /></object></div><div style="width:804px;height:22px;padding:0px 10px 0px 0px;color:black;font:normal 8pt verdana,helvetica,arial,sans-serif;"><div style="float:right; padding-right:8px;"><a href="http://www.tableausoftware.com/public?ref=http://public.tableausoftware.com/views/YESRPerformanceMonitor/MerchantMonitor" target="_blank">Powered by Tableau</a></div></div>
+        </p>
+	</div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#merchant-detail-tabs").tabs();
+        });
+    </script>
+}

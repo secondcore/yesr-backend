@@ -1,0 +1,32 @@
+﻿@using Global.YESR.Web.Helpers
+@model Global.YESR.Models.Merchant
+
+<div>
+<article>
+		<table><tr>
+			<td rowspan='2' width='140px' align='center'>@Html.Image(Url.Content(Model.ImageUrl), Model.Name)</td>
+			<td><h3>@Model.Name</h3></td>
+			</tr><tr>
+			<td>@Model.Description</td>
+		</tr></table>
+		<hr/>
+
+</article>
+
+<aside>
+	<table>
+	<tr><td><h2>&nbsp;</h2></td></tr>
+	<tr><td>
+		Total Discount: @Model.TotalDiscount
+	</td></tr>
+
+	<tr><td>
+		Cash Back Discount: @Model.CashBackDiscount
+	</td></tr>
+
+	<tr><td>
+		Rating: @Model.Rating
+	</td></tr>
+	</table>
+</aside>
+</div>

@@ -1,0 +1,12 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/grid/feature
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=488
+AbstractSummary.js;3038593630;1;1339455027;
+Chunking.js;1380806875;1;1339455027;
+Feature.js;1988210216;1;1339455027;
+Grouping.js;334802633;1;1339455027;
+GroupingSummary.js;1787385328;1;1339455027;
+RowBody.js;2282823289;1;1339455027;
+RowWrap.js;723550781;1;1339455027;
+Summary.js;3420118763;1;1339455027;

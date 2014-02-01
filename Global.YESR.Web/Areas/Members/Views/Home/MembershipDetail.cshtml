@@ -1,0 +1,44 @@
+﻿@using System.Globalization
+@using System.Threading
+@model Global.YESR.Web.Areas.Members.ViewModels.MembershipDetailViewModel
+
+@{
+	ViewBag.Title = "Membership Detail";
+}
+
+@{
+	//Get the culture property of the thread.
+	CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+	//Create TextInfo object.
+	TextInfo textInfo = cultureInfo.TextInfo;
+	//Convert to title case.
+	var firstName = textInfo.ToTitleCase(Model.Membership.Member.FirstName.ToLower());
+	var lastName = textInfo.ToTitleCase(Model.Membership.Member.LastName.ToLower());
+	
+}
+<h2>@firstName @lastName</h2>
+<h3>&nbsp;@Model.Membership.MembershipNumber</h3>
+<table>
+<tr>
+	<td><b>Instance :</b></td><td class="padded">@Model.Membership.Instance.Name</td>
+	<td><b>Since :</b></td><td class="padded">@Model.Membership.CreateDate.ToString("MMM yyyy")</td>
+	<td><b>Last Activity :</b></td><td class="padded">@Model.Membership.LastActivityDate.ToString("MMM yyyy")</td>
+</tr>
+</table>
+<hr/>
+<table>
+<tr>
+	<td align='right'><b>Bonds :</b></td><td class="padded">@Model.Stats.Bonds</td>
+	<td align='right'><b>Next Bond :</b></td><td class="padded">@Model.Stats.NeededCashForNextBond</td>
+	<td align='right'><b>Next Dividend:</b></td><td class="padded">@Model.Stats.NeededBondsForNextDividend</td>
+	<td align='right'><b>Wallet :</b></td><td class="padded">@Model.Stats.CashInWallet</td>
+	<td align='right'><b>Cash Back :</b></td><td class="padded">@Model.Stats.CashBackAmount</td>
+</tr>
+<tr>
+	<td align='right'><b>Purchases :</b></td><td class="padded">@Model.Stats.Purchases</td>
+	<td align='right'><b>Amount :</b></td><td class="padded">@Model.Stats.PurchasesAmount</td>
+	<td align='right'><b></b></td><td class="padded"></td>
+	<td align='right'><b>Referral Bonuses :</b></td><td class="padded">@Model.Stats.ReferralBonuses</td>
+	<td align='right'><b>Amount :</b></td><td class="padded">@Model.Stats.ReferralBonusesAmount</td>
+</tr>
+</table>

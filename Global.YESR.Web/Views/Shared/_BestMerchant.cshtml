@@ -1,0 +1,11 @@
+﻿@using Global.YESR.Web.Helpers
+@model Global.YESR.Models.Merchant
+
+<div>
+    <h4>@Model.Name</h4>
+    <p>
+        @Model.Name achieved great milestones in servicing YESR members. Members enjoyed ..... so this is like a featured promotoion. 
+        More details about this merchnat performance can be found @Html.ActionLink("here", "Detail", "Merchants", new { id=Model.Id }, null)
+    </p>
+</div>
+

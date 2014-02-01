@@ -1,0 +1,15 @@
+﻿@model Global.YESR.Web.Areas.Sponsors.ViewModels.SponsorDetailViewModel
+
+@{
+    ViewBag.Link = "details";
+    ViewBag.Title = "Sponsor Detail";
+}
+
+<h2>@Model.Sponsor.Name</h2>
+<table>
+    <tr>
+        <td><b>Bonds: </b></td><td class='padded'>@Model.Stats.Bonds</td>  
+        <td><b>Bonds Amount: </b></td><td class='padded'>@Model.Stats.BondsAmount</td>  
+    </tr>
+</table>
+

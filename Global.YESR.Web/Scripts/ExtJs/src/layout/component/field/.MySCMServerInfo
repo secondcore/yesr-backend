@@ -1,0 +1,12 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/layout/component/field
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=494
+ComboBox.js;1675628874;1;1339455027;
+Field.js;1935650695;1;1339455027;
+FieldContainer.js;3395314798;1;1339455027;
+HtmlEditor.js;2133588204;1;1339455027;
+Slider.js;107304394;1;1339455027;
+Text.js;3079870222;1;1339455027;
+TextArea.js;1605290174;1;1339455027;
+Trigger.js;547348177;1;1339455027;

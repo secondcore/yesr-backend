@@ -1,0 +1,10 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/resources/themes/stylesheets/ext4/default/mixins
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=410
+_background-gradient.scss;24799408;1;1339455022;
+_color-by-background.scss;2739027125;1;1339455022;
+_frame.scss;499151026;1;1339455022;
+_inner-border.scss;3852348698;1;1339455022;
+_reset-extras.scss;2766776823;1;1339455022;
+_theme-background-image.scss;3298296070;1;1339455022;

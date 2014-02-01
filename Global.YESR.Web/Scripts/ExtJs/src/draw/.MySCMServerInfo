@@ -1,0 +1,13 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/draw
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=478
+Color.js;1318220530;1;1339455025;
+Component.js;3348664927;1;1339455025;
+CompositeSprite.js;3959863172;1;1339455025;
+Draw.js;3298487103;1;1339455025;
+Matrix.js;323803280;1;1339455026;
+Sprite.js;1986166610;1;1339455026;
+SpriteDD.js;1194813049;1;1339455026;
+Surface.js;3195612973;1;1339455026;
+Text.js;307170480;1;1339455026;

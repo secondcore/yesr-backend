@@ -1,0 +1,47 @@
+﻿@model Global.YESR.Web.ViewModels.PumpMembershipsViewModel
+
+@{
+    ViewBag.Title = "Pump Memberships";
+}
+
+<h2>Pump Memberships</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Pump Memberships</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Memberships)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Memberships)
+            @Html.ValidationMessageFor(model => model.Memberships)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PurchasesPerMembership)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PurchasesPerMembership)
+            @Html.ValidationMessageFor(model => model.PurchasesPerMembership)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DaysBetweenPurchases)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DaysBetweenPurchases)
+            @Html.ValidationMessageFor(model => model.DaysBetweenPurchases)
+        </div>
+
+        <p>
+            <input type="submit" value="Pump" />
+        </p>
+    </fieldset>
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

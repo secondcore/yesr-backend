@@ -1,0 +1,12 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/toolbar
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=506
+Fill.js;3814307442;1;1339455027;
+Item.js;697995626;1;1339455027;
+Paging.js;59814025;1;1339455027;
+Separator.js;71226570;1;1339455027;
+Spacer.js;21017781;1;1339455027;
+TextItem.js;1751443736;1;1339455027;
+Toolbar-legacy.js;384018299;1;1339455028;
+Toolbar.js;199723125;1;1339455028;

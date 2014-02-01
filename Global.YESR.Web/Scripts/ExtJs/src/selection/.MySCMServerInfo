@@ -1,0 +1,10 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/selection
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=501
+CellModel.js;1901821791;1;1339455027;
+CheckboxModel.js;2944883290;1;1339455027;
+DataViewModel.js;4203872791;1;1339455027;
+Model.js;1192248868;1;1339455027;
+RowModel.js;2530443221;1;1339455027;
+TreeModel.js;3243358989;1;1339455027;

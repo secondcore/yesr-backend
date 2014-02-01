@@ -1,0 +1,9 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/core/test/unit/other_specs/dom
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=458
+extjs-api.js;4162644792;1;1339455024;
+platform-api.js;4291282674;1;1339455024;
+sanity.js;1792340862;1;1339455024;
+touch-api-out.js;4105302672;1;1339455024;
+touch-api.js;3245671714;1;1339455024;

@@ -1,0 +1,10 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/grid/column
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=487
+Action.js;4029136830;1;1339455027;
+Boolean.js;2335302288;1;1339455027;
+Column.js;1100525283;1;1339455027;
+Date.js;4055091688;1;1339455027;
+Number.js;1706005325;1;1339455027;
+Template.js;1873476747;1;1339455027;

@@ -1,0 +1,36 @@
+﻿@using Global.YESR.Web.Helpers
+@using Global.YESR.Models
+@if (Request.IsAuthenticated) {
+    var authUser = SessionHelper.Authenticated;
+    <p>
+        Hello, @Html.ActionLink(User.Identity.Name, "ChangePassword", "Login", routeValues: null, htmlAttributes: new { @class = "username", title = "Change password" })
+        @Html.ActionLink("Log off", "LogOff", "Login", new { area = "" }, null)
+
+        @if (authUser.Group.Id == Group.Members)
+        {
+            @Html.ActionLink("my area", "Index", "Home", new { area = "Members" }, null);
+        }
+        else if (authUser.Group.Id == Group.Merchants)
+        {
+            @Html.ActionLink("my area", "Index", "Home", new { area = "Merchants" }, null);
+        }
+        else if (authUser.Group.Id == Group.Sponsors)
+        {
+            @Html.ActionLink("my area", "Index", "Home", new { area = "Sponsors" }, null);
+        }
+        else if (authUser.Group.Id == Group.Yesr)
+        {
+            @Html.ActionLink("my area", "Index", "Home", new { area = "Yesr" }, null);
+        }
+    </p>
+}
+else
+{
+    <ul>
+        <li>@Html.ActionLink("Members Registration", "MembersRegister", "Login", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Merchants Registration", "MerchantsRegister", "Login", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Sponsors Registration", "SponsorsRegister", "Login", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Employees Registration", "YesrRegister", "Login", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "LogOn", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

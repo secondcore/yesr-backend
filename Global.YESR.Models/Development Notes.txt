@@ -1,0 +1,259 @@
+﻿Setup the Database Connection in App.config or Web.config
+	<connectionStrings>
+		<add name="YESR.Managers.YContext"
+				connectionString="Data Source=.;Initial Catalog=YESR;Integrated Security=True;Trusted_Connection=true;"
+				providerName="System.Data.SqlClient" />
+	</connectionStrings>
+Database Initialization Strategy placed in Global.aspx or the Main. If you use DropCreateDatabaseAlways, make sure you close all the query windows in SSMS...otherwise EF will throw an exception as it will be able to delete the database
+The Fluent API (i.e. ModelBuilder) is more involved, but it is quite more useful
+The Database Initializer code is best situated in static block or static constructor in C#
+It is good to have a foregin key in model classes. This will force EF to make the relationship mandatory and will also force the column name to look nice i.e. MemberId as opposed to Member.
+Optimistic locking is added via RowVersion in most important model classes
+It is important to initialize the model classes list in the constructor.
+How about lazy and eager loading? 
+The model classes that are acting up as look up entities must be seeded into the model upon start up i.e. Channel, Contact, etc. There are some equated values in the class that are used throughout the code
+The model classes that have compound keys i.e. ELigibleSpend has Spend Id and Merchnat Id. How are they modeled?
+How does EF guarantee uniqiuess? In Java, we override the 'equate' method!!
+The discrimnator column can be changed in EF, but I am unable to do it. Please see the commented out section about that in MembershipTransactionConfiguration class
+One cannot map properties defined in different derived entities to the same column. That is limitation in EF. If your WidgetTypeA has UserId property and your WidgetTypeB has UserId property they must be different columns in the database. It should work if you move both UserId and User properties from derived types to the parent Widget type.
+Unfortunately, you cannot leave DateTime values unfilled! You getan exception ....so either fill the values or change the column types to datetime2 in SQL Server
+
+21 June 2012
+* Fix the Eligible Spend Compound Key...are we going to need this?
+* (DONE)Parent refers to the membership not the member.
+* (DONE)Sponsor Invoices can be issued either at the time where we reach a certain number of bonds (Sponsor.PurchasesQualifyForRefund) for a percentage
+defined in Sponsor.RefundPercentage or at the time of an investment unit maturing (i.e. becomes qualified for a dividend). The configurable item 
+Sponsor.IsSponsorPayMember controls this option. In my opinion, it is always advatageous to invoice the sponsor at the time when we reach the refunds
+threshold. This way the amount of invoices will be a lot less and bigger in value.
+* (DONE)There is a need to add a new line item in the sponsor invoice! It is applicable only if the Sponsor is defined as Sponsor.IsSponsorPayMember. It is 
+basically 5% (Sponsor.ManagementFeePercentage) of the dividend that we charge the Sponsor for.
+* (DONE)The above requires that we add a new InvestmentUnitTransaction called 'ManagementFee' to track this fee in the database.
+* Make sure that the display of referral bonus is not related to the members purchases but rather to the beneficiary
+* (DONE)Allow the system to issue a registration token per member. This will be used to allow members to refer other people so they can 
+register online and they become their parents. Once the token is used, the system issues another token and emails the member. This 
+allows people to become members online while preserving the parent identify.
+* (DONE)Store the wallet amount in accumulation reserves so we can show it with purchases.
+* We need a way to normalize the data! In case we only have 1000 members...what do we do to make them 50,000?
+* (DONE)Standards Scheme vs. Power Scheme - against investment units
+* Additional Repositories:
+=> Member Transactions
+=> Membership Transactions i.e. Switch Scheme
+* WCF
+
+Public Area:
+* Free Information: 
+=> Total Members, Total Merchants or Discount Providers online and offline. 
+=> Savings Calculator in Benefits
+=> No performance or stats
+
+Members Area:
+* Purchases Listing: Date, Merchant, Amount, Cash Back Discount, Accumulation Reserve and (maybe) the empty wallet amount.
+* Referral Bonuses Listing: Date, Amount, Membership ...when the beneficiary is me
+* Bonds Listing :
+* Charts: 
+=> Purchase vs. Dividend Amounts monthly and Running Total for the last 12 months
+=> Bonds Amounts monthly and Running Total
+=> Referral Bonuses Amounts monthly and Running Total for the last 12 months
+=> Cash Discount Amounts monthly and Running Total
+=> Spend vs. Dividend - Actual Calculator
+
+Merchants Area:
+* Purchases Listing - Allow filters: last month, 6 months, etc
+* Charts:
+=> Cash Discount vs. Dividends i.e. Dividend = Referral Bonuses + Dividend
+=> Purchases Amount
+
+Sponsor/Yesr Area - maybe controlled by permission
+* All Listings
+* All Charts:
+=> Enrollments ...show by referral as well
+=> Purchases
+=> Bonds
+=> Bonds Efficiency
+=> Dividends Monitor
+=> Average spend per member per year
+=> Average spend per visit
+
+26 June 2012:
+* UPGRADE to EF 5 and.NET 4.5!! Perhaps use VS2012.
+* The WCF Data Services offers a good way to expose the model via WCF
+* One DBContext per web request!!!
+* (DONE)I changed the way we handle the test! The DbContext is disposed after every membership and its purchases. It seems that 
+the DbContext is not meant to be shared due to threading and other issues problems.
+* It is pobably better not to pass the context to the repositories in constructors. Anyway, learn how the MVC containers instantiate
+controller classes. 
+* (DONE)Go through the model to see if there are any columns created with something_something...it is terrible.
+* (DONE)Make sure that the membership's last activity date is updated
+* (DONE)The registration code for a membership, merchant and a sponsor must be maintained!!!
+
+26 June 2012:
+FREE INFORMATION:
+=================
+SELECT count(*) as memberships from Memberships
+select IsOnline, count(*) as Merchants from Merchants group by IsOnline
+
+Overall Average Spend:
+select avg(p.Amount) as AverageSpend
+FROM MembershipTransactions p, Memberships m
+WHERE p.MembershipId = m.Id
+and p.Discriminator = 'Purchase'
+
+Average spends:
+select YEAR(p.TransactionDate) as Year, MONTH(p.TransactionDate) as Month,
+avg(p.Amount) as PurchaseAmount,
+avg(ar.Amount) as AccReserveAmount,
+avg(rb.Amount) as ReferralBonus,
+avg(cb.Amount) as CashBackAmount
+from Memberships m, MembershipTransactions p, MembershipTransactions ar, MembershipTransactions rb, MembershipTransactions cb 
+where p.Discriminator = 'Purchase'
+and p.MembershipId = m.id
+and ar.Discriminator = 'AccumulationReserve'
+and ar.AccumulationReservePurchaseId = p.Id
+and rf.Discriminator = 'ReferralBonus'
+and rf.ReferralBonusPurchaseId = p.Id
+and cb.Discriminator = 'CashBackBonus'
+and cb.CashBackBonusPurchaseId = p.Id
+group by YEAR(p.TransactionDate), MONTH(p.TransactionDate)
+
+MEMBERS
+=======
+Purchase Amounts per member:
+select YEAR(p.TransactionDate) as Year, MONTH(p.TransactionDate) as Month,
+sum(p.Amount) as PurchaseAmount,
+sum(ar.Amount) as AccReserveAmount,
+sum(af.Amount) as AdminFeeAmount,
+sum(cb.Amount) as CashBackAmount
+from Memberships m, MembershipTransactions p, MembershipTransactions ar, MembershipTransactions af, MembershipTransactions cb 
+where p.Discriminator = 'Purchase'
+and p.MembershipId = m.id
+and ar.Discriminator = 'AccumulationReserve'
+and ar.AccumulationReservePurchaseId = p.Id
+and af.Discriminator = 'AdminFee'
+and af.AdminfeePurchaseId = p.Id
+and cb.Discriminator = 'CashBackBonus'
+and cb.CashBackBonusPurchaseId = p.Id
+and m.MembershipNumber = '9710020000002710'
+group by YEAR(p.TransactionDate), MONTH(p.TransactionDate)
+
+Referral Bonus Amount per member:
+select YEAR(rb.TransactionDate) as Year, Month(rb.TransactionDate) as Month, 
+sum(amount) as ReferralBonus
+from  MembershipTransactions rb, Memberships mm 
+WHERE mm.Id = rb.BeneficiaryId 
+and mm.MembershipNumber = '9710020000000025'
+group by YEAR(rb.TransactionDate), Month(rb.TransactionDate)
+
+Dividend Amount per member:
+select YEAR(d.TransactionDate) as Year, MONTH(d.TransactionDate) as Month,
+sum(d.Amount) as DividendAmount
+from InvestmentUnitTransactions d, InvestmentUnits ius, Memberships m
+where d.Discriminator = 'DividendBonus'
+and d.InvestmentUnitId = ius.Id
+and ius.MembershipId = m.id
+and m.MembershipNumber = '9710020000002710'
+group by YEAR(d.TransactionDate), MONTH(d.TransactionDate)
+
+Bond Amount per member:
+select YEAR(ius.PurchaseDate) as Year, MONTH(ius.PurchaseDate) as Month,
+sum(ius.Amount) as BondAmount
+from InvestmentUnits ius, Memberships m
+where ius.MembershipId = m.id
+and ius.SponsorReference <> ''
+and m.MembershipNumber = '9710020000002710'
+group by YEAR(ius.PurchaseDate), MONTH(ius.PurchaseDate)
+
+Average Spend Per Member Per Year:
+select MembershipNumber, purchaseAmount as TotalSpend, Months, purchaseAmount/Months as AverageMonthlySpend
+from 
+(
+select m.MembershipNumber, datediff(month, m.createdate, '2014-02-05') as Months,
+sum(p.Amount) as PurchaseAmount,
+sum(ar.Amount) as AccReserveAmount,
+sum(af.Amount) as AdminFeeAmount,
+sum(cb.Amount) as CashBackAmount
+from Memberships m, MembershipTransactions p, MembershipTransactions ar, MembershipTransactions af, MembershipTransactions cb 
+where p.Discriminator = 'Purchase'
+and p.MembershipId = m.id
+and ar.Discriminator = 'AccumulationReserve'
+and ar.AccumulationReservePurchaseId = p.Id
+and af.Discriminator = 'AdminFee'
+and af.AdminfeePurchaseId = p.Id
+and cb.Discriminator = 'CashBackBonus'
+and cb.CashBackBonusPurchaseId = p.Id
+group by m.MembershipNumber, datediff(month, m.createdate, '2014-02-05')
+) td
+-- where  (purchaseAmount/Months) BETWEEN (1000-10) and (1000+10)
+WHERE Months = 12
+
+TABLEAU MONITORS:
+=================
+Enrollments Monitor:
+<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/viz_v1.js"></script><div class="tableauPlaceholder" style="width:604px; height:695px;"><noscript><a href="undefined"><img alt=" " src="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESREnrollmentsMonitor&#47;EnrollmentsMonitor&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" width="604" height="695" style="display:none;"><param name="host_url" value="http%3A%2F%2Fpublic.tableausoftware.com%2F" /><param name="site_root" value="" /><param name="name" value="YESREnrollmentsMonitor&#47;EnrollmentsMonitor" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESREnrollmentsMonitor&#47;EnrollmentsMonitor&#47;1.png" /><param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /></object></div><div style="width:604px;height:22px;padding:0px 10px 0px 0px;color:black;font:normal 8pt verdana,helvetica,arial,sans-serif;"><div style="float:right; padding-right:8px;"><a href="http://www.tableausoftware.com/public?ref=http://public.tableausoftware.com/views/YESREnrollmentsMonitor/EnrollmentsMonitor" target="_blank">Powered by Tableau</a></div></div>
+
+Sponsors Invoices Monitor:
+<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/viz_v1.js"></script><div class="tableauPlaceholder" style="width:604px; height:695px;"><noscript><a href="undefined"><img alt=" " src="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRSponsorInvoicesMonitor&#47;SponsorInvoicesMonitor&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" width="604" height="695" style="display:none;"><param name="host_url" value="http%3A%2F%2Fpublic.tableausoftware.com%2F" /><param name="site_root" value="" /><param name="name" value="YESRSponsorInvoicesMonitor&#47;SponsorInvoicesMonitor" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRSponsorInvoicesMonitor&#47;SponsorInvoicesMonitor&#47;1.png" /><param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /></object></div><div style="width:604px;height:22px;padding:0px 10px 0px 0px;color:black;font:normal 8pt verdana,helvetica,arial,sans-serif;"><div style="float:right; padding-right:8px;"><a href="http://www.tableausoftware.com/public?ref=http://public.tableausoftware.com/views/YESRSponsorInvoicesMonitor/SponsorInvoicesMonitor" target="_blank">Powered by Tableau</a></div></div>
+
+Dividends vs. Management Fees Monitor:
+<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/viz_v1.js"></script><div class="tableauPlaceholder" style="width:604px; height:495px;"><noscript><a href="undefined"><img alt=" " src="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRDividendsvsManagementFeesMonitor&#47;Dividendsvs_ManagementFeesMonitor&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" width="604" height="495" style="display:none;"><param name="host_url" value="http%3A%2F%2Fpublic.tableausoftware.com%2F" /><param name="site_root" value="" /><param name="name" value="YESRDividendsvsManagementFeesMonitor&#47;Dividendsvs_ManagementFeesMonitor" /><param name="tabs" value="yes" /><param name="toolbar" value="no" /><param name="static_image" value="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRDividendsvsManagementFeesMonitor&#47;Dividendsvs_ManagementFeesMonitor&#47;1.png" /><param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /></object></div><div style="width:604px;height:22px;padding:0px 10px 0px 0px;color:black;font:normal 8pt verdana,helvetica,arial,sans-serif;"><div style="float:right; padding-right:8px;"><a href="http://www.tableausoftware.com/public?ref=http://public.tableausoftware.com/views/YESRDividendsvsManagementFeesMonitor/Dividendsvs_ManagementFeesMonitor" target="_blank">Powered by Tableau</a></div></div>
+
+Spends vs. Dividends Monitor:
+<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/viz_v1.js"></script><div class="tableauPlaceholder" style="width:604px; height:695px;"><noscript><a href="undefined"><img alt=" " src="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRSpendsvsDividendsMonitor&#47;Spendsvs_DividendsMonitor&#47;1_rss.png" style="border: none" /></a></noscript><object class="tableauViz" width="604" height="695" style="display:none;"><param name="host_url" value="http%3A%2F%2Fpublic.tableausoftware.com%2F" /><param name="site_root" value="" /><param name="name" value="YESRSpendsvsDividendsMonitor&#47;Spendsvs_DividendsMonitor" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="http:&#47;&#47;public.tableausoftware.com&#47;static&#47;images&#47;YE&#47;YESRSpendsvsDividendsMonitor&#47;Spendsvs_DividendsMonitor&#47;1.png" /><param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /></object></div><div style="width:604px;height:22px;padding:0px 10px 0px 0px;color:black;font:normal 8pt verdana,helvetica,arial,sans-serif;"><div style="float:right; padding-right:8px;"><a href="http://www.tableausoftware.com/public?ref=http://public.tableausoftware.com/views/YESRSpendsvsDividendsMonitor/Spendsvs_DividendsMonitor" target="_blank">Powered by Tableau</a></div></div>
+
+June 30, 2012:
+=============
+Area: Object Model
+Merchant - add category to allow merchants to be segmented by industries i.e. Grocery, Insurance, beauty, etc.
+Investment Unit - Currency?
+YContext - fix the merchant.Category
+MerchantInvoice - goes against a purchase
+Membership - add test flag. If test, do not allow the creation of sponsor invoices and do not allow the sponsor purchase
+Invoices and Bonds - do not do it if the membership is test
+Membership Calculator - build dynamic model based on input and then delete all the extra stuff. The membership will have a 'IsTest' set to true.
+Repositories - pagination needs to respect the filter expression
+Get Monthly Spend vs Dividend By membership and Merchant - it can be 3 different queries for now where dividend is: Bond Dividend, Casb Back Bonus and Referral Bonus (from others)
+Make sure that the model does not contain Region_id stuff
+Re-run the 10,000 members
+
+Area: UI
+Charts - add support for opacity dual axis
+Charts - add support for panel commands: total running, grid, percentages, etc
+Charts - X-AXIS Orientation
+Charts - X-AXIS Year Grouping
+
+Area: Main
+Home - Members and Merchants Distribution Charts can be placed in a tab so we show more distribution types i.e. by country, etc.
+Merchants - Merchant Detail button
+Merchants - Segmentation and Search
+Sponsor - more marketing stuff for Sponsor
+Benefits - Program features - more explanation
+Details - fix all detauls including membership, merchant, sponsor and yesr
+
+Area: Merchants
+Purchases - add segmentation ny last month, types i.e. by country, etc.
+Merchants - Merchant Detail button
+Sponsor - more marketing stuff for Sponsor
+Benefits - Program features - more explanation
+
+Area: Tableau
+Enrollments Monitor
+Sponsor Invoices Monitor
+Spends vs. Accumulations Monitor - not uploaded
+Dividends vs. Magmt Fees Monitor
+Bonds Monitor
+Bonds Turn Over Monitor
+Spends vs. Dividends Monitor
+
+Re-upload after run
+
+July 14, 2012:
+==============
+* Change the standards scheme to allow the inclusion of all members as long as they are less in member id. This allows a YESR Member to purchase a YBond and receive a dividend (DONE)
+* Increase the coefficients and allow for own, child, grand child and Others (DONE)
+* Implement a Member Calculator based on average visit spend, number of spends, etc. Test Memberships cannot buy YBond...but we keep them in the system (DONE)
+* Implmenet a memberships pump and a calculator using Cloud Queue Storage (DONE)
+* Currency Issues must be dealt with
+
+
+
+      
+

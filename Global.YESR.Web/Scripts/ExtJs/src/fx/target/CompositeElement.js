@@ -1,0 +1,1 @@
+Ext.define("Ext.fx.target.CompositeElement",{extend:"Ext.fx.target.Element",isComposite:true,constructor:function(a){a.id=a.id||Ext.id(null,"ext-composite-");this.callParent([a])},getAttr:function(a,g){var b=[],f=this.target.elements,e=f.length,c,d;for(c=0;c<e;c++){d=f[c];if(d){d=this.target.getElement(d);b.push([d,this.getElVal(d,a,g)])}}return b}});

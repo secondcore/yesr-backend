@@ -1,0 +1,25 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/resources/css
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=269
+bubble-panel.css;629718108;1;1339455013;
+ext-all-access-debug.css;766829784;1;1339455013;
+ext-all-access.css;937345026;1;1339455013;
+ext-all-debug.css;450011880;1;1339455013;
+ext-all-gray-debug.css;2200183614;1;1339455013;
+ext-all-gray.css;292535624;1;1339455013;
+ext-all-scoped-debug.css;1023174558;1;1339455013;
+ext-all-scoped.css;876486069;1;1339455013;
+ext-all.css;4064880646;1;1339455013;
+ext-ie-debug.css;1234360048;1;1339455013;
+ext-ie-scoped-debug.css;1758764488;1;1339455013;
+ext-ie-scoped.css;1399687138;1;1339455013;
+ext-ie.css;1429550093;1;1339455013;
+ext-neptune-debug.css;1679695655;1;1339455013;
+ext-neptune.css;1679695655;1;1339455013;
+ext-sandbox-debug.css;4122883777;1;1339455013;
+ext-sandbox.css;1853951672;1;1339455013;
+ext-standard-debug.css;3322429174;1;1339455013;
+ext-standard-scoped-debug.css;3871899442;1;1339455013;
+ext-standard-scoped.css;3938379208;1;1339455013;
+ext-standard.css;1703161147;1;1339455014;

@@ -1,0 +1,52 @@
+﻿@model Global.YESR.Web.ViewModels.MerchantsViewModel
+
+@{
+ViewBag.Link = "merchants";
+    ViewBag.Title = "merchants";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+    <ul>
+        <li>@Html.ActionLink("home", "Index", "Home", new { area = "" }, null)</li>
+        <li>merchants</li>
+    </ul>
+</section>
+}
+
+@foreach (var item in Model.Items) 
+{
+    @Html.Partial("_Merchant", item)
+}
+
+@if (Model.MaxPage > 1)
+{
+    <article id="post-pagination">
+        <div class="newer">
+            @if (Model.Page > 1)
+            {
+                if (Model.Page != 2)
+                {
+                    @Html.ActionLink("Better Rated Merchants", "Index", new { page = Model.Page - 1 })
+                }
+                else
+                {
+                    @Html.ActionLink("Better Rated Merchants", "Index")
+                }
+                <span>&nbsp;&rArr;</span>
+            }
+        </div>        
+        <div class="older">
+            @if (Model.Page < Model.MaxPage)
+            {
+                <span>&lArr;&nbsp;</span>
+                @Html.ActionLink("Less Rated Merchants", "Index", new { page = Model.Page + 1 })
+            }
+            else
+            {
+                <span>&nbsp;</span>
+            }
+        </div>        
+    </article>
+}
+

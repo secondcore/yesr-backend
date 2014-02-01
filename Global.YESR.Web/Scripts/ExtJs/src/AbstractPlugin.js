@@ -1,0 +1,1 @@
+Ext.define("Ext.AbstractPlugin",{disabled:false,constructor:function(a){if(!a.cmp&&Ext.global.console){Ext.global.console.warn("Attempted to attach a plugin ")}Ext.apply(this,a)},getCmp:function(){return this.cmp},init:Ext.emptyFn,destroy:Ext.emptyFn,enable:function(){this.disabled=false},disable:function(){this.disabled=true}});

@@ -1,0 +1,9 @@
+SCMBranch=Version 3.00
+SCMRepository=dxb_sapphire/dashboard/SapphireDashboard/Scripts/ExtJs/src/state
+SCMMainlineUUID={48b262cd-dc00-4345-9ea8-40b02eb09979}
+SCMBranchRepositoryID=503
+CookieProvider.js;1688697979;1;1339455027;
+LocalStorageProvider.js;3566685894;1;1339455027;
+Manager.js;1381834284;1;1339455027;
+Provider.js;741949365;1;1339455027;
+Stateful.js;1781363727;1;1339455027;

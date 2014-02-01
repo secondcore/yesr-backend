@@ -1,0 +1,1 @@
+Ext.define("Sample.ability.CanSing",{config:{knownSongs:["Yesterday","Happy New Year","Jingle Bells"]},canSing:true,sing:function(a){if(!Ext.Array.contains(this.getKnownSongs(),a)){alert("Sorry! I can't sing "+a)}else{alert("I'm singing "+a)}return this}});

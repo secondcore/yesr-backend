@@ -1,0 +1,61 @@
+﻿@using System.Web.Optimization
+@model Global.YESR.Models.Merchant
+
+@{
+	ViewBag.Link = "discounts";
+	ViewBag.Title = "Merchants Home";
+}
+
+@section breadcrumbs {
+<section id="breadcrumbs">
+    <ul>
+        <li>@Html.ActionLink("home", "Index", "Home", new { area = "Merchants" }, null)</li>
+        <li>Discounts vs. Bonuses</li>
+    </ul>
+</section>
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                @Html.Action("MerchantDetail")
+            </hgroup>
+        </div>
+    </section>
+}
+
+<article>
+    <h3>Running total of awarded discounts vs. received bonuses</h3>
+    <div id="monthlyDiscounts" class='chart-holder'>
+    </div>
+</article>
+
+<aside>
+    <h3>Useful Links</h3>
+    <ul>
+        <li>@Html.ActionLink("View Member Benefits", "Benefits", "Home", new { area = "" }, null)</li>
+        <li><a href="">Fill out an Online Enrollment Form</a></li>
+        <li><a href="">Request a Personal Presentation</a></li>
+        <li><a href="">Send us a Question</a></li>
+    </ul>
+    
+</aside>
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/flot")
+    <script type="text/javascript">
+        var plot = null;
+        $(document).ready(function () {
+            dataService.getMonthlyCashDiscountVsReferralBonusByMerchant(@Model.Id, function (monthliesData) {
+                if (monthliesData == null || monthliesData.length == 0) return;
+                var chartLabels = ["Cash Discounts", "Referral Bonuses"];
+                //plot = yesrFormatter.renderMonthlyChart($("#monthlyDiscounts"), 700, 400, 'red', chartLabels, monthliesData, true, 'nw');
+                yesrFormatter.renderMonthlyGraph($("#monthlyDiscounts"), 'Category3', 700, 400, chartLabels, monthliesData, true, true, false);
+            }, function (error) {
+                yesrFormatter.showError("An error occurred during monthly data retrieval: " + error.toString());
+            });
+        });
+    </script>
+}
